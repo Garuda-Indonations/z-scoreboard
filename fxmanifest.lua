@@ -1,4 +1,4 @@
---[[ Need Help? Join my discord @ discord.gg/yWddFpQ ]] 
+--[[ Need Help? Join my discord @ discord.gg/yWddFpQ ]]
 ui_page 'html/index.html'
 
 description 'Clean Scoreboard'
@@ -13,3 +13,6 @@ files {
     'config.js',
     'html/listener.js',
 }
+
+game 'gta5'
+fx_version 'adamant'

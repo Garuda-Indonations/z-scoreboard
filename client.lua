@@ -1,31 +1,37 @@
 --[[ Need Help? Join my discord @ discord.gg/yWddFpQ ]]
 
 local nui = false
+local key = 20
+local players = GlobalState["players"] or {}
 
 Citizen.CreateThread(function()
-    --[[ If you want to change the key, go to https://docs.fivem.net/game-references/controls/ and change the '20' value below]]
-    local key = 10 -- Change this to your key value
-    nui = false
+    while true do
+        Wait(1000)
+
+        players = GlobalState["players"]
+    end
+end)
+
+Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
 
-        if IsControlPressed(0, key) then 
+        if IsControlPressed(0, key) then
             if not nui then
-                local players = {}
-                ptable = GetPlayers()
-                for _, i in ipairs(ptable) do
-                    r, g, b = GetPlayerRgbColour(i)
-                    table.insert(players,
-                    '<tr style=\"color: #fff"><td>' .. GetPlayerServerId(i) .. '</td><td>' .. GetPlayerName(i) .. '</td></tr>'
+                local playerList = {}
+                for _, player in pairs(players) do
+                    table.insert(playerList,
+                        '<tr style=\"color: #fff"><td>' ..
+                        player.id .. '</td><td>' .. player.name .. '</td></tr>'
                     )
                 end
 
-                SendNUIMessage({ text = table.concat(players) })
+                SendNUIMessage({ text = table.concat(playerList) })
 
                 nui = true
                 while nui do
                     Wait(0)
-                    if(IsControlPressed(0, key) == false) then
+                    if (IsControlPressed(0, key) == false) then
                         nui = false
                         SendNUIMessage({
                             meta = 'close'
@@ -37,15 +43,3 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
-function GetPlayers()
-    local players = {}
-
-    for i = 0, 31 do
-        if NetworkIsPlayerActive(i) then
-            table.insert(players, i)
-        end
-    end
-
-    return players
-end

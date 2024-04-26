@@ -1,6 +1,6 @@
 /* Config 2 */
 var title = "Garuda Indonations";
-var footer = "https://discord.gg/A5ZzraS";
+var footer = "https://discord.gg/garudaindonations";
 /* ------------------------------- */
 /* ext no touchy touchy */
 document.getElementById("title").innerHTML = title;
